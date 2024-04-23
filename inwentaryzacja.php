@@ -15,35 +15,31 @@
     <input type='number' min='0.01' name='kiedy'  step='0.01' required>
         <input type='submit' value='wypłać'>
     </form>
-    <form action='inwentaryzacja.php' method='get'>
-        <input type='submit' value='inwentaryzacja'>
+    <form action='inwentaryzacja2.php' method='get'>
+        pięćsetek: <input type='number' value='0' min=0 step='0.01' name='piecset' required><br>
+        dwusetek: <input type='number' value='0' min=0 step='0.01' name='dwiescie' required><br>
+        setek: <input type='number' value='0' min=0 step='0.01' name='sto' required><br>
+        piędziesiątek: <input type='number' value='0' min=0 step='0.01' name='piecdziesiat' required><br>
+        dwudziestek: <input type='number' value='0' min=0 step='0.01' name='dwadziescia' required><br>
+        dziesiątek: <input type='number' value='0' min=0 step='0.01' name='dziesiec' required><br>
+        piątek: <input type='number' value='0' min=0 step='0.01' name='piatec' required><br>
+        dwójek: <input type='number' value='0' min=0 step='0.01' name='dwojek' required><br>
+        jedynek: <input type='number' value='0' min=0 step='0.01' name='jedynek' required><br>
+        
+        <input type='submit' value='podlicz'>
+        
     </form>
-    <form action='raport.php' method='get'>
-        <input type='submit' value='raport'>
-    </form>
+    
         
     </fieldset> <br>
 
 
 ";
-    $banknoty = array(
-        '500'=>0,
-        '200'=>0,
-        '100'=>0,
-        '50'=>0,
-        '20'=>0,
-        '10'=>0,
-        '5'=>0,
-        '2'=>0,
-        '1'=>0,
-        '0.5'=>0,
-        '0.2'=>0,
-        '0.1'=>0,
+$banknoty=[];
 
-    );
-    echo "<pre>";
-print_r($banknoty);
-echo "</pre>";
+
+
+$banknoty[0] = $_GET['piecset'];
 
 echo '</body>
 </html>';

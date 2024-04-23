@@ -34,6 +34,18 @@ $ile = $_GET['kiedy'];
 echo "chciałeś wypłacić: ".$ile;
 $liczba=$ile;
 $bylo=fopen("plik.txt","r");
+
+
+
+$rap=fopen("raport.txt", "r");
+$lik=fread($rap, filesize("raport.txt"));
+$lik=explode("\n",$lik);
+
+fclose($rap);
+
+
+
+
     $najpierw=0;
     $bylozaw=fread($bylo, filesize("plik.txt"));
     $k=(explode(",",$bylozaw));
@@ -215,15 +227,27 @@ $suma=0;
 for ($i=0;$i<=14;$i++){
     $suma=$suma+($k[$i]-$tym[$i])*$nominaly[$i];
 }
+fwrite($jest, implode(',',$tym));
+fclose($jest);
+
 
 echo "<br>razem wypłaciłeś: $suma<br>";
 fclose($bylo);
+$raport=fopen("raport.txt", "a");
+$index=count($lik);
+$nazwa="wp$index";
+$data=date("Y-m-d");
+$czas=date("H:i");
+$tresc='wyplata';
+$suma=0-$suma;
+fwrite($raport,"$index $nazwa $data $czas $tresc $suma\n");
+
+
+fclose($raport);
 
 
 
 
-fwrite($jest, implode(',',$tym));
-fclose($jest);
 
 
 

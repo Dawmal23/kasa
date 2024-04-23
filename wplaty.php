@@ -26,7 +26,11 @@
 
 
 ";
+$rap=fopen("raport.txt", "r");
+$lik=fread($rap, filesize("raport.txt"));
+$lik=explode("\n",$lik);
 
+fclose($rap);
 
     $banknoty =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,];
     $nominaly=[500,200,100,50,20,10,5,2,1,0.5,0.2,0.1,0.05,0.02,0.01];
@@ -191,6 +195,13 @@ for ($i=0;$i<=14;$i++){
 
 echo "<br>razem wpłaciłeś: $suma<br>";
 
+$raport=fopen("raport.txt", "a");
+$index=count($lik);
+$nazwa="wp$index";
+$data=date("Y-m-d");
+$czas=date("H:i");
+$tresc='wplata';
+fwrite($raport,"$index $nazwa $data $czas $tresc $suma\n");
 
 
 for($i=0;$i<=14;$i++){

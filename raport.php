@@ -26,24 +26,14 @@
 
 
 ";
-    $banknoty = array(
-        '500'=>0,
-        '200'=>0,
-        '100'=>0,
-        '50'=>0,
-        '20'=>0,
-        '10'=>0,
-        '5'=>0,
-        '2'=>0,
-        '1'=>0,
-        '0.5'=>0,
-        '0.2'=>0,
-        '0.1'=>0,
-
-    );
-    echo "<pre>";
-print_r($banknoty);
-echo "</pre>";
+$plik=fopen("raport.txt","r");
+$lik=fread($plik, filesize("raport.txt"));
+$lik=explode("\n",$lik);
+for($i=0;$i<count($lik);$i++){
+echo $lik[$i];
+echo "<br>";
+}
+fclose($plik);
 
 echo '</body>
 </html>';
