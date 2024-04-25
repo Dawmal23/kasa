@@ -1,4 +1,4 @@
-<?php echo "<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang='pl'>
 <head>
     <meta charset='UTF-8'>
@@ -9,11 +9,12 @@
 <fieldset>
         <legend>wybierz opcję</legend>
         <form action='wplaty.php' method='get'>
-            <input type='number' min='0.01' name='ile' step='0.01' required>
+            ile masz zapłacić: <input type='number' min='0.01' name='ile' step='0.01' required><br>
+            ile wpłacić klijent: <input type='number' min='0.01' name='jak' step='0.01' required>
             <input type='submit' value='wpłać'>
         </form>
         <form action='wyplaty.php' method='get'>
-        <input type='number' min='0.01' name='kiedy' step='0.01' required>
+        ile chcesz wypłacić: <input type='number' min='0.01' name='kiedy' step='0.01' required>
             <input type='submit' value='wypłać'>
         </form>
         <form action='inwentaryzacja.php' method='get'>
@@ -26,7 +27,8 @@
     </fieldset> <br>
 
 
-";
+
+<?php
 $rap=fopen("raport.txt", "r");
 $lik=fread($rap, filesize("raport.txt"));
 $lik=explode("\n",$lik);
@@ -60,6 +62,7 @@ fclose($rap);
     $suma002=0;
     $suma001=0;
     $sum = $_GET['ile'];
+    $jak=$_GET['jak'];
     $liczba=$sum;
    echo "<br>wpłaciłeś: $liczba<br>";
    

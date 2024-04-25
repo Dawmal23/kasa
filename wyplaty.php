@@ -71,94 +71,94 @@ fclose($rap);
     $suma002=0;
     $suma001=0;
     piecset:
-        if (round($liczba,2)>=500){
+        if (round($liczba,2)>=500 && $k[0]>$suma500){
             $suma500++;
             $liczba=round($liczba,2)-500;
             
             goto piecset;
         }
         dwiescie:
-        if (round($liczba,2)>=200){
+        if (round($liczba,2)>=200 && $k[1]>$suma200){
             $suma200++;
             $liczba=round($liczba,2)-200;
             goto dwiescie;
         }
         sto:
-        if (round($liczba,2)>=100){
+        if (round($liczba,2)>=100 && $k[2]>$suma100){
             $suma100++;
             $liczba=round($liczba,2)-100;
             goto sto;
         }
         piedziesiat:
-        if (round($liczba,2)>=50){
+        if (round($liczba,2)>=50 && $k[3]>$suma50){
             $suma50++;
             $liczba=round($liczba,2)-50;
             goto piedziesiat;
         }
         dwadziescia:
-        if (round($liczba,2)>=20){
+        if (round($liczba,2)>=20 && $k[4]>$suma20){
             $suma20++;
             $liczba=round($liczba,2)-20;
             goto dwadziescia;
         }
         dziesiec:
-        if (round($liczba,2)>=10){
+        if (round($liczba,2)>=10 && $k[5]>$suma10){
             $suma10++;
             $liczba=round($liczba,2)-10;
             goto dziesiec;
         }
         piec:
-        if (round($liczba,2)>=5){
+        if (round($liczba,2)>=5 && $k[6]>$suma5){
             $suma5++;
             $liczba=round($liczba,2)-5;
-            goto piedziesiat;
+            goto piec;
         }
         dwa:
-        if (round($liczba,2)>=2){
+        if (round($liczba,2)>=2 && $k[7]>$suma2){
             $suma2++;
             $liczba=round($liczba,2)-2;
             goto dwa;
         }
         jeden:
-        if (round($liczba,2)>=1){
+        if (round($liczba,2)>=1 && $k[8]>$suma1){
             $suma1++;
             $liczba=round($liczba,2)-1;
             goto jeden;
         }
         pisiontgr:
-        if (round($liczba,2)>=0.5){
+        if (round($liczba,2)>=0.5 && $k[9]>$suma05){
             $suma05++;
             $liczba=round($liczba,2)-0.5;
             goto pisiontgr;
         }
         dwadziesciagr:
-        if (round($liczba,2)>=0.2){
+        if (round($liczba,2)>=0.2 && $k[10]>$suma02){
             $suma02++;
             $liczba=round($liczba,2)-0.2;
             goto dwadziesciagr;
         }
         dziesiecagr:
-        if (round($liczba,2)>=0.1){
+        if (round($liczba,2)>=0.1 && $k[11]>$suma01){
             
             $suma01++;
             $liczba=round($liczba,2)-0.1;
             goto dziesiecagr;
         }
         piecgr:
-        if (round($liczba,2)>=0.05){
+        if (round($liczba,2)>=0.05 && $k[12]>$suma005){
             $suma005++;
             $liczba=round($liczba,2)-0.05;
             //echo $liczba;
             goto piecgr;
         }
         dwagr:
-        if (round($liczba,2)>=0.02){
+        if (round($liczba,2)>=0.02 && $k[13]>$suma002){
             $suma002++;
             $liczba=round($liczba,2)-0.02;
             goto dwagr;
         }
         jedengr:
-        if (round($liczba,2)>=0.01){
+        if (round($liczba,2)>=0.01 && $k[14]>$suma001){
             $suma001++;
             $liczba=round($liczba,2)-0.01;
             goto jedengr;
@@ -181,17 +181,9 @@ fclose($rap);
     $tym=$banknoty;
     $x='';
     for($i=0;$i<=14;$i++){
-        if ($tym[$i]<=$k[$i]){
-        $tym[$i]=$k[$i]-$tym[$i];
-        
-        }else{
-            $tym[$i]=$k[$i];
-            if ($x==''){
-                $x='<br>Z powodu zbyt małej ilości banknotów część nie została wypłacona';
-            }
-        }
-        
+        $tym[$i]=$k[$i]-$tym[$i];  
     }
+    
   
 
 echo "<br>pięćsetek: ".$k[0]-$tym[0];
@@ -230,7 +222,9 @@ for ($i=0;$i<=14;$i++){
 }
 fwrite($jest, implode(',',$tym));
 fclose($jest);
-
+if ($suma!=$ile){
+    echo "z powodu braku środków wypłacono mniej niż chciano";
+}
 
 echo "<br>razem wypłaciłeś: $suma<br>";
 fclose($bylo);
@@ -254,5 +248,4 @@ fclose($raport);
 
 echo '</body>
 </html>';
-
 ?>

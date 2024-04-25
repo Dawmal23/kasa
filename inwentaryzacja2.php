@@ -39,7 +39,7 @@ $bylozaw=fread($bylo, filesize("plik.txt"));
         $najpierw=$najpierw+$k[$i]*$nominaly[$i];
 
     }
-
+fclose($bylo);
     $tab=[];
     $tab[0] = $_GET['piecset'];
     $tab[1] = $_GET['dwiescie'];
@@ -77,22 +77,29 @@ $bylozaw=fread($bylo, filesize("plik.txt"));
         echo "<tr><td>-</td><td bgcolor=#dd7373>$suma</td><td>$najpierw</td></table>";
         if($suma>$najpierw){
         echo "<input type='submit' id='pstryczek' value='dołuż do kasy brakujące pieniądze'";
+        
         }else{
             echo "<input type='submit' id='pstryczek' value='wyjmij z kasy nadmiar pieniądzy'";
+            for ($i=0;$i<=14;$i++){
+                $k[$i]=$tab[$i];
+                }
         }
-        echo "</div>";
     }
+    echo "</div></div>";
+    
     echo "<div id='tabela2'><table><tr><td>-</td><td>stan rzeczywisty</td><td>stan logiczny</td></tr>";
     for ($i=0;$i<=14;$i++){
         echo "<tr><td>";
         
-            echo $nominaly[$i]."</td><td>".$tab[$i]."</td><td>".$k[$i]."</td></tr>";
+        echo $nominaly[$i]."</td><td>".$tab[$i]."</td><td>".$k[$i]."</td></tr>";
     }
-    echo "<tr><td>-</td><td>$suma</td><td>$najpierw</td></table>";
-    echo "</div>";
+    echo "<tr><td>-</td><td>$suma</td><td>$suma</td></table>";
+    echo "</div></div>";
+    $jest=fopen("plik.txt","w");
 
-echo '</body>
-</html>';
+    fwrite($jest, implode(',',$tab));
+    fclose($jest);
+
 
 ?>
 <script type="text/JavaScript">
@@ -110,3 +117,6 @@ echo '</body>
         
     }
 </script>
+
+</body>
+</html>
