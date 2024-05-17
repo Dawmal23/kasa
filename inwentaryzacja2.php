@@ -29,6 +29,11 @@
 </div>
 
 ";
+$rap=fopen("raport.txt", "r");
+$lik=fread($rap, filesize("raport.txt"));
+$lik=explode("\n",$lik);
+
+fclose($rap);
 $najpierw=0;
 $banknoty =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,];
 $nominaly=[500,200,100,50,20,10,5,2,1,0.5,0.2,0.1,0.05,0.02,0.01];
@@ -65,26 +70,49 @@ fclose($bylo);
             echo $nominaly[$i]."</td><td>".$tab[$i]."</td><td>".$k[$i]."</td></tr>";
         }else{
             echo $nominaly[$i]."</td><td bgcolor=#dd7373>".$tab[$i]."</td><td>".$k[$i]."</td></tr>";
-            $k[$i]=$tab[$i];
-
+            
         }
         
         $suma=$suma+$tab[$i]*$nominaly[$i];
+        
     } 
     if($suma==$najpierw){ 
     echo "<tr><td>-</td><td>$suma</td><td>$najpierw</td></table>";
+    echo "<input type='submit' id='pstryczek' value='wszystko_się_zgadza'";
+    $wynik="wszystko_się_zgadzało";
     }else{
+        for($l=0;$l<=14;$l++){
+            if($k[$l]<$tab[$l]){
+                $tab[$l]=$k[$l];
+            }else{
+                $tab[$l]=$k[$l];
+            }
+        }
         echo "<tr><td>-</td><td bgcolor=#dd7373>$suma</td><td>$najpierw</td></table>";
-        if($suma>$najpierw){
+        if($suma<$najpierw){
+            
         echo "<input type='submit' id='pstryczek' value='dołuż do kasy brakujące pieniądze'";
+        $wynik=$najpierw-$suma;
+        
         
         }else{
             echo "<input type='submit' id='pstryczek' value='wyjmij z kasy nadmiar pieniądzy'";
-            for ($i=0;$i<=14;$i++){
-                $k[$i]=$tab[$i];
-                }
+            $wynik="-".$suma-$najpierw;
+             
         }
+        
     }
+    $raport=fopen("raport.txt", "a");
+$index=count($lik);
+$nazwa="i$index";
+$data=date("Y-m-d");
+$czas=date("H:i");
+$tresc='inwentaryzacja';
+$suma=0-$suma;
+fwrite($raport,"$index $nazwa $data $czas $tresc $wynik\n");
+
+
+fclose($raport);
     echo "</div></div>";
     
     echo "<div id='tabela2'><table><tr><td>-</td><td>stan rzeczywisty</td><td>stan logiczny</td></tr>";
@@ -93,12 +121,14 @@ fclose($bylo);
         
         echo $nominaly[$i]."</td><td>".$tab[$i]."</td><td>".$k[$i]."</td></tr>";
     }
-    echo "<tr><td>-</td><td>$suma</td><td>$suma</td></table>";
+    echo "<tr><td>-</td><td>$najpierw</td><td>$najpierw</td></table>";
     echo "</div></div>";
     $jest=fopen("plik.txt","w");
 
     fwrite($jest, implode(',',$tab));
     fclose($jest);
+    
+
 
 
 ?>

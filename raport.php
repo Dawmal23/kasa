@@ -31,7 +31,7 @@ $plik=fopen("raport.txt","r");
 $kil=fread($plik, filesize("raport.txt"));
 $lik=explode("\n",$kil);
 echo "<table><tr><td>ID</td><td>nazwa</td><td>data</td><td>komentarz</td><td>ilość</td></tr>";
-for ($i=0;$i<count($lik);$i++){
+for ($i=0;$i<count($lik)-1;$i++){
     $czesc=explode(' ',$lik[$i]);
     echo "<tr><td>".$czesc[0]."</td><td>".$czesc[1]."</td><td>".$czesc[2]." ".$czesc[3]."</td><td>".$czesc[4]."</td><td>".$czesc[5]."</td></tr>";
 
